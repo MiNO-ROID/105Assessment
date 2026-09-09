@@ -7,7 +7,7 @@
 using namespace std;
 
 const int MAX_MENU_ITEMS = 50;
-const double MAX_MENU_PRICE = 500.00;
+const int MAX_MENU_PRICE = 1000;
 
 struct MenuItem {
     int itemId;
@@ -32,6 +32,10 @@ public:
 
     void loadMenu(const string& filename);
     void saveMenu(const string& filename) const;
+
+    // Helpers for Order Management
+    MenuItem* getMenuItemById(int itemId);
+    const vector<MenuItem>& getMenuItems() const;
 };
 
-#endif
+#endif // INC_105ASSESSMENT_MENU_H

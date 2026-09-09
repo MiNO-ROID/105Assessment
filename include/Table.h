@@ -33,6 +33,11 @@ public:
 
     void loadTables(const string& filename);
     void saveTables(const string& filename) const;
+
+    // Helpers for Order Management
+    bool isTableOccupied(int tableNumber) const;
+    int getTableCount() const;
+    int getOccupiedTableCount() const;
 };
 
-#endif
+#endif // INC_105ASSESSMENT_TABLE_H

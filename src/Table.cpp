@@ -300,3 +300,26 @@ void TableManager::saveTables(const string& filename) const {
 
     cout << "Table data saved successfully.\n";
 }
+
+bool TableManager::isTableOccupied(int tableNumber) const {
+    for (const auto& t : tables) {
+        if (t.tableNumber == tableNumber) {
+            return t.isOccupied;
+        }
+    }
+    return false; // table not found
+}
+
+int TableManager::getTableCount() const {
+    return static_cast<int>(tables.size());
+}
+
+int TableManager::getOccupiedTableCount() const {
+    int count = 0;
+    for (const auto& t : tables) {
+        if (t.isOccupied) {
+            count++;
+        }
+    }
+    return count;
+}

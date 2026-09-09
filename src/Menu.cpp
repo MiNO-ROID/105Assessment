@@ -16,11 +16,9 @@ MenuItem* MenuManager::findMenuItemById(int itemId) {
             return &item;
         }
     }
-
     return nullptr;
 }
 
-// add item to menu
 void MenuManager::addMenuItem() {
     if (menuItems.size() >= MAX_MENU_ITEMS) {
         cout << "Cannot add a new menu item. "
@@ -99,7 +97,6 @@ void MenuManager::addMenuItem() {
          << "\" added successfully.\n";
 }
 
-// display menu
 void MenuManager::viewMenuItems() const {
     cout << "\n========== VIEW MENU ITEMS ==========\n";
 
@@ -124,7 +121,6 @@ void MenuManager::viewMenuItems() const {
     }
 }
 
-// edit existing menu
 void MenuManager::editMenuItem() {
     int itemId;
 
@@ -230,7 +226,6 @@ void MenuManager::editMenuItem() {
     } while (choice != 6);
 }
 
-// delete menu item
 void MenuManager::deleteMenuItem() {
     int itemId;
 
@@ -253,7 +248,6 @@ void MenuManager::deleteMenuItem() {
     cout << "Menu item not found.\n";
 }
 
-// load menu csv
 void MenuManager::loadMenu(const string& filename) {
     ifstream inputFile(filename);
 
@@ -322,7 +316,6 @@ void MenuManager::loadMenu(const string& filename) {
     inputFile.close();
 }
 
-// save menu
 void MenuManager::saveMenu(const string& filename) const {
     ofstream outputFile(filename);
 
@@ -346,4 +339,12 @@ void MenuManager::saveMenu(const string& filename) const {
     outputFile.close();
 
     cout << "Menu data saved successfully.\n";
+}
+
+MenuItem* MenuManager::getMenuItemById(int itemId) {
+    return findMenuItemById(itemId);
+}
+
+const vector<MenuItem>& MenuManager::getMenuItems() const {
+    return menuItems;
 }
