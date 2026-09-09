@@ -11,10 +11,10 @@ void displayMainMenu() {
     cout << "========================================\n";
     cout << "1. Table Management\n";
     cout << "2. Menu Management\n";
-    cout << "3. Save Data\n";
-    cout << "4. Exit\n";
+    cout << "3. Exit\n";
     cout << "Choose an option: ";
 }
+
 
 void displayTableMenu() {
     cout << "\n========== TABLE MANAGEMENT ==========\n";
@@ -48,6 +48,7 @@ void runTableMenu(TableManager& tableManager) {
         switch (choice) {
             case 1:
                 tableManager.addTable();
+                tableManager.saveTables("../data/tables.csv");
                 break;
 
             case 2:
@@ -56,18 +57,22 @@ void runTableMenu(TableManager& tableManager) {
 
             case 3:
                 tableManager.editTable();
+                tableManager.saveTables("../data/tables.csv");
                 break;
 
             case 4:
                 tableManager.deleteTable();
+                tableManager.saveTables("../data/tables.csv");
                 break;
 
             case 5:
                 tableManager.assignTable();
+                tableManager.saveTables("../data/tables.csv");
                 break;
 
             case 6:
                 tableManager.freeTable();
+                tableManager.saveTables("../data/tables.csv");
                 break;
 
             case 7:
@@ -91,6 +96,7 @@ void runMenuManagementMenu(MenuManager& menuManager) {
         switch (choice) {
             case 1:
                 menuManager.addMenuItem();
+                menuManager.saveMenu("../data/menu.csv");
                 break;
 
             case 2:
@@ -99,10 +105,12 @@ void runMenuManagementMenu(MenuManager& menuManager) {
 
             case 3:
                 menuManager.editMenuItem();
+                menuManager.saveMenu("../data/menu.csv");
                 break;
 
             case 4:
                 menuManager.deleteMenuItem();
+                menuManager.saveMenu("../data/menu.csv");
                 break;
 
             case 5:
@@ -141,20 +149,14 @@ int main() {
             case 3:
                 tableManager.saveTables("../data/tables.csv");
                 menuManager.saveMenu("../data/menu.csv");
-                cout << "All data saved successfully.\n";
-                break;
-
-            case 4:
-                tableManager.saveTables("../data/tables.csv");
-                menuManager.saveMenu("../data/menu.csv");
-                cout << "Goodbye.\n";
+                cout << "All data saved. Goodbye.\n";
                 break;
 
             default:
                 cout << "Invalid option.\n";
         }
 
-    } while (choice != 4);
+    } while (choice != 3);
 
     return 0;
 }
