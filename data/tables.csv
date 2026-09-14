@@ -5,3 +5,4 @@ tableNumber,capacity,isOccupied,partySize
 4,6,false,0
 5,4,false,0
 6,10,false,0
+10,10,false,0

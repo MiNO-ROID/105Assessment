@@ -13,6 +13,7 @@
 using namespace std;
 
 const int MAX_ORDER_ITEMS = 20;
+const int MAX_ORDERS = 100;
 
 enum class OrderStatus {
     New,
