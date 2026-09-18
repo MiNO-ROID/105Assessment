@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include "manager.h"
 
 using namespace std;
 
@@ -16,11 +17,11 @@ struct RestaurantTable {
     int partySize;
 };
 
-class TableManager {
+class TableManager : public manager {
 private:
     vector<RestaurantTable> tables;
 
-    RestaurantTable *findTableByNumber(int tableNumber);
+    RestaurantTable* findTableByNumber(int tableNumber);
 
 public:
     void addTable();
@@ -35,11 +36,16 @@ public:
 
     void freeTable();
 
-    void loadTables(const string &filename);
+    void loadTables(const string& filename);
 
-    void saveTables(const string &filename) const;
+    void saveTables(const string& filename) const;
 
-    // Helpers for Order Management
+    void displayData() const override;
+
+    void loadData(const string& filename) override;
+
+    void saveData(const string& filename) const override;
+
     bool isTableOccupied(int tableNumber) const;
 
     int getTableCount() const;

@@ -19,7 +19,6 @@ RestaurantTable *TableManager::findTableByNumber(int tableNumber) {
     return nullptr;
 }
 
-// add new table
 void TableManager::addTable() {
     if (tables.size() >= MAX_TABLES) {
         cout << "Cannot add a new table. "
@@ -64,7 +63,6 @@ void TableManager::addTable() {
             << " added successfully.\n";
 }
 
-// Display table
 void TableManager::viewTables() const {
     cout << "\n========== VIEW TABLES ==========\n";
 
@@ -87,7 +85,6 @@ void TableManager::viewTables() const {
     }
 }
 
-// Change the capacity of an existing table
 void TableManager::editTable() {
     int tableNumber;
     int newCapacity;
@@ -125,7 +122,6 @@ void TableManager::editTable() {
             << " updated successfully.\n";
 }
 
-// Deletes an available table
 void TableManager::deleteTable() {
     int tableNumber;
 
@@ -153,7 +149,6 @@ void TableManager::deleteTable() {
     cout << "Table not found.\n";
 }
 
-// Assigns guests to a table
 void TableManager::assignTable() {
     int tableNumber;
     int partySize;
@@ -195,7 +190,6 @@ void TableManager::assignTable() {
             << " guest(s) successfully.\n";
 }
 
-// Free a table after guests leave
 void TableManager::freeTable() {
     int tableNumber;
 
@@ -222,7 +216,6 @@ void TableManager::freeTable() {
             << " is now available.\n";
 }
 
-// Loads all table
 void TableManager::loadTables(const string &filename) {
     ifstream inputFile(filename);
 
@@ -307,7 +300,7 @@ bool TableManager::isTableOccupied(int tableNumber) const {
             return t.isOccupied;
         }
     }
-    return false; // table not found
+    return false;
 }
 
 int TableManager::getTableCount() const {
@@ -322,4 +315,16 @@ int TableManager::getOccupiedTableCount() const {
         }
     }
     return count;
+}
+
+void TableManager::displayData() const {
+    viewTables();
+}
+
+void TableManager::loadData(const string& filename) {
+    loadTables(filename);
+}
+
+void TableManager::saveData(const string& filename) const {
+    saveTables(filename);
 }

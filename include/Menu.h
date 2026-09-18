@@ -37,7 +37,6 @@ public:
 
     void saveMenu(const string &filename) const;
 
-    // Helpers for Order Management
     MenuItem *getMenuItemById(int itemId);
 
     const vector<MenuItem> &getMenuItems() const;

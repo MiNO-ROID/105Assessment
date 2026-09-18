@@ -10,4 +10,6 @@ add_executable(105Assessment src/main.cpp
         include/Table.h
         src/Order.cpp
         include/Order.h
+        src/manager.cpp
+        include/manager.h
 )
