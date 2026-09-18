@@ -20,23 +20,30 @@ class TableManager {
 private:
     vector<RestaurantTable> tables;
 
-    RestaurantTable* findTableByNumber(int tableNumber);
+    RestaurantTable *findTableByNumber(int tableNumber);
 
 public:
     void addTable();
+
     void viewTables() const;
+
     void editTable();
+
     void deleteTable();
 
     void assignTable();
+
     void freeTable();
 
-    void loadTables(const string& filename);
-    void saveTables(const string& filename) const;
+    void loadTables(const string &filename);
+
+    void saveTables(const string &filename) const;
 
     // Helpers for Order Management
     bool isTableOccupied(int tableNumber) const;
+
     int getTableCount() const;
+
     int getOccupiedTableCount() const;
 };
 

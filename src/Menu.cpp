@@ -10,8 +10,8 @@
 
 using namespace std;
 
-MenuItem* MenuManager::findMenuItemById(int itemId) {
-    for (MenuItem& item : menuItems) {
+MenuItem *MenuManager::findMenuItemById(int itemId) {
+    for (MenuItem &item: menuItems) {
         if (item.itemId == itemId) {
             return &item;
         }
@@ -22,8 +22,8 @@ MenuItem* MenuManager::findMenuItemById(int itemId) {
 void MenuManager::addMenuItem() {
     if (menuItems.size() >= MAX_MENU_ITEMS) {
         cout << "Cannot add a new menu item. "
-             << "The menu has reached its maximum limit of "
-             << MAX_MENU_ITEMS << " items.\n";
+                << "The menu has reached its maximum limit of "
+                << MAX_MENU_ITEMS << " items.\n";
         return;
     }
 
@@ -70,7 +70,7 @@ void MenuManager::addMenuItem() {
 
     if (newItem.price <= 0 || newItem.price > MAX_MENU_PRICE) {
         cout << "Price must be between $0.01 and $"
-             << MAX_MENU_PRICE << ".\n";
+                << MAX_MENU_PRICE << ".\n";
         return;
     }
 
@@ -94,7 +94,7 @@ void MenuManager::addMenuItem() {
     menuItems.push_back(newItem);
 
     cout << "Menu item \"" << newItem.name
-         << "\" added successfully.\n";
+            << "\" added successfully.\n";
 }
 
 void MenuManager::viewMenuItems() const {
@@ -106,17 +106,17 @@ void MenuManager::viewMenuItems() const {
     }
 
     cout << "Current menu items: " << menuItems.size()
-         << " / " << MAX_MENU_ITEMS << "\n\n";
+            << " / " << MAX_MENU_ITEMS << "\n\n";
 
-    for (const MenuItem& item : menuItems) {
+    for (const MenuItem &item: menuItems) {
         cout << "Item ID: " << item.itemId << "\n";
         cout << "Name: " << item.name << "\n";
         cout << "Description: " << item.description << "\n";
         cout << "Category: " << item.category << "\n";
         cout << "Price: $" << item.price << "\n";
         cout << "Availability: "
-             << (item.isAvailable ? "Available" : "Unavailable")
-             << "\n";
+                << (item.isAvailable ? "Available" : "Unavailable")
+                << "\n";
         cout << "------------------------------------\n";
     }
 }
@@ -128,7 +128,7 @@ void MenuManager::editMenuItem() {
     cout << "Enter menu item ID to edit: ";
     cin >> itemId;
 
-    MenuItem* item = findMenuItemById(itemId);
+    MenuItem *item = findMenuItemById(itemId);
 
     if (item == nullptr) {
         cout << "Menu item not found.\n";
@@ -187,7 +187,7 @@ void MenuManager::editMenuItem() {
 
                 if (newPrice <= 0 || newPrice > MAX_MENU_PRICE) {
                     cout << "Price must be between $0.01 and $"
-                         << MAX_MENU_PRICE << ".\n";
+                            << MAX_MENU_PRICE << ".\n";
                 } else {
                     item->price = newPrice;
                     cout << "Price updated successfully.\n";
@@ -222,7 +222,6 @@ void MenuManager::editMenuItem() {
             default:
                 cout << "Invalid option.\n";
         }
-
     } while (choice != 6);
 }
 
@@ -238,7 +237,7 @@ void MenuManager::deleteMenuItem() {
          ++iterator) {
         if (iterator->itemId == itemId) {
             cout << "Menu item \"" << iterator->name
-                 << "\" deleted successfully.\n";
+                    << "\" deleted successfully.\n";
 
             menuItems.erase(iterator);
             return;
@@ -248,7 +247,7 @@ void MenuManager::deleteMenuItem() {
     cout << "Menu item not found.\n";
 }
 
-void MenuManager::loadMenu(const string& filename) {
+void MenuManager::loadMenu(const string &filename) {
     ifstream inputFile(filename);
 
     if (!inputFile.is_open()) {
@@ -308,7 +307,7 @@ void MenuManager::loadMenu(const string& filename) {
         string availableText = line.substr(fifthComma + 1);
 
         item.isAvailable =
-            availableText == "true" || availableText == "1";
+                availableText == "true" || availableText == "1";
 
         menuItems.push_back(item);
     }
@@ -316,7 +315,7 @@ void MenuManager::loadMenu(const string& filename) {
     inputFile.close();
 }
 
-void MenuManager::saveMenu(const string& filename) const {
+void MenuManager::saveMenu(const string &filename) const {
     ofstream outputFile(filename);
 
     if (!outputFile.is_open()) {
@@ -326,14 +325,14 @@ void MenuManager::saveMenu(const string& filename) const {
 
     outputFile << "itemId,name,description,category,price,isAvailable\n";
 
-    for (const MenuItem& item : menuItems) {
+    for (const MenuItem &item: menuItems) {
         outputFile << item.itemId << ","
-                   << item.name << ","
-                   << item.description << ","
-                   << item.category << ","
-                   << item.price << ","
-                   << (item.isAvailable ? "true" : "false")
-                   << "\n";
+                << item.name << ","
+                << item.description << ","
+                << item.category << ","
+                << item.price << ","
+                << (item.isAvailable ? "true" : "false")
+                << "\n";
     }
 
     outputFile.close();
@@ -341,10 +340,10 @@ void MenuManager::saveMenu(const string& filename) const {
     cout << "Menu data saved successfully.\n";
 }
 
-MenuItem* MenuManager::getMenuItemById(int itemId) {
+MenuItem *MenuManager::getMenuItemById(int itemId) {
     return findMenuItemById(itemId);
 }
 
-const vector<MenuItem>& MenuManager::getMenuItems() const {
+const vector<MenuItem> &MenuManager::getMenuItems() const {
     return menuItems;
 }

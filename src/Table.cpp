@@ -9,8 +9,8 @@
 
 using namespace std;
 
-RestaurantTable* TableManager::findTableByNumber(int tableNumber) {
-    for (RestaurantTable& table : tables) {
+RestaurantTable *TableManager::findTableByNumber(int tableNumber) {
+    for (RestaurantTable &table: tables) {
         if (table.tableNumber == tableNumber) {
             return &table;
         }
@@ -23,8 +23,8 @@ RestaurantTable* TableManager::findTableByNumber(int tableNumber) {
 void TableManager::addTable() {
     if (tables.size() >= MAX_TABLES) {
         cout << "Cannot add a new table. "
-             << "The restaurant has reached the maximum limit of "
-             << MAX_TABLES << " tables.\n";
+                << "The restaurant has reached the maximum limit of "
+                << MAX_TABLES << " tables.\n";
         return;
     }
 
@@ -51,7 +51,7 @@ void TableManager::addTable() {
     if (newTable.capacity <= 0 ||
         newTable.capacity > MAX_TABLE_CAPACITY) {
         cout << "Table capacity must be between 1 and "
-             << MAX_TABLE_CAPACITY << ".\n";
+                << MAX_TABLE_CAPACITY << ".\n";
         return;
     }
 
@@ -61,7 +61,7 @@ void TableManager::addTable() {
     tables.push_back(newTable);
 
     cout << "Table " << newTable.tableNumber
-         << " added successfully.\n";
+            << " added successfully.\n";
 }
 
 // Display table
@@ -74,14 +74,14 @@ void TableManager::viewTables() const {
     }
 
     cout << "Current tables: " << tables.size()
-         << " / " << MAX_TABLES << "\n\n";
+            << " / " << MAX_TABLES << "\n\n";
 
-    for (const RestaurantTable& table : tables) {
+    for (const RestaurantTable &table: tables) {
         cout << "Table Number: " << table.tableNumber << "\n";
         cout << "Capacity: " << table.capacity << "\n";
         cout << "Status: "
-             << (table.isOccupied ? "Occupied" : "Available")
-             << "\n";
+                << (table.isOccupied ? "Occupied" : "Available")
+                << "\n";
         cout << "Guests: " << table.partySize << "\n";
         cout << "------------------------------\n";
     }
@@ -96,7 +96,7 @@ void TableManager::editTable() {
     cout << "Enter table number to edit: ";
     cin >> tableNumber;
 
-    RestaurantTable* table = findTableByNumber(tableNumber);
+    RestaurantTable *table = findTableByNumber(tableNumber);
 
     if (table == nullptr) {
         cout << "Table not found.\n";
@@ -110,7 +110,7 @@ void TableManager::editTable() {
     if (newCapacity <= 0 ||
         newCapacity > MAX_TABLE_CAPACITY) {
         cout << "Table capacity must be between 1 and "
-             << MAX_TABLE_CAPACITY << ".\n";
+                << MAX_TABLE_CAPACITY << ".\n";
         return;
     }
 
@@ -122,7 +122,7 @@ void TableManager::editTable() {
     table->capacity = newCapacity;
 
     cout << "Table " << tableNumber
-         << " updated successfully.\n";
+            << " updated successfully.\n";
 }
 
 // Deletes an available table
@@ -145,7 +145,7 @@ void TableManager::deleteTable() {
             tables.erase(iterator);
 
             cout << "Table " << tableNumber
-                 << " deleted successfully.\n";
+                    << " deleted successfully.\n";
             return;
         }
     }
@@ -162,7 +162,7 @@ void TableManager::assignTable() {
     cout << "Enter table number: ";
     cin >> tableNumber;
 
-    RestaurantTable* table = findTableByNumber(tableNumber);
+    RestaurantTable *table = findTableByNumber(tableNumber);
 
     if (table == nullptr) {
         cout << "Table not found.\n";
@@ -191,8 +191,8 @@ void TableManager::assignTable() {
     table->partySize = partySize;
 
     cout << "Table " << tableNumber
-         << " assigned to " << partySize
-         << " guest(s) successfully.\n";
+            << " assigned to " << partySize
+            << " guest(s) successfully.\n";
 }
 
 // Free a table after guests leave
@@ -203,7 +203,7 @@ void TableManager::freeTable() {
     cout << "Enter table number: ";
     cin >> tableNumber;
 
-    RestaurantTable* table = findTableByNumber(tableNumber);
+    RestaurantTable *table = findTableByNumber(tableNumber);
 
     if (table == nullptr) {
         cout << "Table not found.\n";
@@ -219,11 +219,11 @@ void TableManager::freeTable() {
     table->partySize = 0;
 
     cout << "Table " << tableNumber
-         << " is now available.\n";
+            << " is now available.\n";
 }
 
 // Loads all table
-void TableManager::loadTables(const string& filename) {
+void TableManager::loadTables(const string &filename) {
     ifstream inputFile(filename);
 
     if (!inputFile.is_open()) {
@@ -269,7 +269,7 @@ void TableManager::loadTables(const string& filename) {
         );
 
         table.isOccupied =
-            occupiedText == "true" || occupiedText == "1";
+                occupiedText == "true" || occupiedText == "1";
 
         table.partySize = stoi(line.substr(thirdComma + 1));
 
@@ -279,7 +279,7 @@ void TableManager::loadTables(const string& filename) {
     inputFile.close();
 }
 
-void TableManager::saveTables(const string& filename) const {
+void TableManager::saveTables(const string &filename) const {
     ofstream outputFile(filename);
 
     if (!outputFile.is_open()) {
@@ -289,11 +289,11 @@ void TableManager::saveTables(const string& filename) const {
 
     outputFile << "tableNumber,capacity,isOccupied,partySize\n";
 
-    for (const RestaurantTable& table : tables) {
+    for (const RestaurantTable &table: tables) {
         outputFile << table.tableNumber << ","
-                   << table.capacity << ","
-                   << (table.isOccupied ? "true" : "false") << ","
-                   << table.partySize << "\n";
+                << table.capacity << ","
+                << (table.isOccupied ? "true" : "false") << ","
+                << table.partySize << "\n";
     }
 
     outputFile.close();
@@ -302,7 +302,7 @@ void TableManager::saveTables(const string& filename) const {
 }
 
 bool TableManager::isTableOccupied(int tableNumber) const {
-    for (const auto& t : tables) {
+    for (const auto &t: tables) {
         if (t.tableNumber == tableNumber) {
             return t.isOccupied;
         }
@@ -316,7 +316,7 @@ int TableManager::getTableCount() const {
 
 int TableManager::getOccupiedTableCount() const {
     int count = 0;
-    for (const auto& t : tables) {
+    for (const auto &t: tables) {
         if (t.isOccupied) {
             count++;
         }

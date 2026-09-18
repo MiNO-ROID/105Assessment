@@ -22,20 +22,25 @@ class MenuManager {
 private:
     vector<MenuItem> menuItems;
 
-    MenuItem* findMenuItemById(int itemId);
+    MenuItem *findMenuItemById(int itemId);
 
 public:
     void addMenuItem();
+
     void viewMenuItems() const;
+
     void editMenuItem();
+
     void deleteMenuItem();
 
-    void loadMenu(const string& filename);
-    void saveMenu(const string& filename) const;
+    void loadMenu(const string &filename);
+
+    void saveMenu(const string &filename) const;
 
     // Helpers for Order Management
-    MenuItem* getMenuItemById(int itemId);
-    const vector<MenuItem>& getMenuItems() const;
+    MenuItem *getMenuItemById(int itemId);
+
+    const vector<MenuItem> &getMenuItems() const;
 };
 
 #endif // INC_105ASSESSMENT_MENU_H

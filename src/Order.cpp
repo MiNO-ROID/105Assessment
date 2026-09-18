@@ -15,8 +15,8 @@
 
 using namespace std;
 
-Order* OrderManager::findOrderById(int orderId) {
-    for (Order& order : orders) {
+Order *OrderManager::findOrderById(int orderId) {
+    for (Order &order: orders) {
         if (order.orderId == orderId) {
             return &order;
         }
@@ -63,17 +63,17 @@ OrderStatus OrderManager::numberToStatus(int choice) const {
     }
 }
 
-double OrderManager::calculateOrderTotal(const Order& order) const {
+double OrderManager::calculateOrderTotal(const Order &order) const {
     double total = 0.0;
 
-    for (const OrderItem& item : order.orderItems) {
+    for (const OrderItem &item: order.orderItems) {
         total += item.quantity * item.unitPrice;
     }
 
     return total;
 }
 
-void OrderManager::displayOrderDetails(const Order& order) const {
+void OrderManager::displayOrderDetails(const Order &order) const {
     cout << "\nOrder ID: " << order.orderId << "\n";
     cout << "Table: " << order.tableNumber << "\n";
     cout << "Date: " << order.orderDate << "\n";
@@ -87,27 +87,27 @@ void OrderManager::displayOrderDetails(const Order& order) const {
 
     cout << "Items:\n";
 
-    for (const OrderItem& item : order.orderItems) {
+    for (const OrderItem &item: order.orderItems) {
         double lineTotal = item.quantity * item.unitPrice;
 
         cout << "  " << item.itemName
-             << " x" << item.quantity
-             << " @ $" << fixed << setprecision(2) << item.unitPrice
-             << " = $" << lineTotal << "\n";
+                << " x" << item.quantity
+                << " @ $" << fixed << setprecision(2) << item.unitPrice
+                << " = $" << lineTotal << "\n";
 
         if (!item.specialInstructions.empty()) {
             cout << "  Instructions: "
-                 << item.specialInstructions << "\n";
+                    << item.specialInstructions << "\n";
         }
     }
 
     cout << "Total: $"
-         << fixed << setprecision(2)
-         << calculateOrderTotal(order) << "\n";
+            << fixed << setprecision(2)
+            << calculateOrderTotal(order) << "\n";
 }
 
-void OrderManager::addOrder(TableManager& tableManager,
-                            const MenuManager& menuManager) {
+void OrderManager::addOrder(TableManager &tableManager,
+                            const MenuManager &menuManager) {
     if (orders.size() >= MAX_ORDERS) {
         cout << "The maximum number of orders has been reached.\n";
         return;
@@ -134,7 +134,7 @@ void OrderManager::addOrder(TableManager& tableManager,
     Order newOrder;
     newOrder.orderId = 1;
 
-    for (const Order& order : orders) {
+    for (const Order &order: orders) {
         if (order.orderId >= newOrder.orderId) {
             newOrder.orderId = order.orderId + 1;
         }
@@ -144,7 +144,7 @@ void OrderManager::addOrder(TableManager& tableManager,
     newOrder.status = OrderStatus::New;
 
     time_t currentTime = time(nullptr);
-    tm* localTime = localtime(&currentTime);
+    tm *localTime = localtime(&currentTime);
 
     char dateBuffer[20];
     char timeBuffer[20];
@@ -173,21 +173,21 @@ void OrderManager::addOrder(TableManager& tableManager,
 
         cout << "\nAvailable menu items:\n";
 
-        for (const MenuItem& menuItem : menuManager.getMenuItems()) {
+        for (const MenuItem &menuItem: menuManager.getMenuItems()) {
             if (menuItem.isAvailable) {
                 cout << menuItem.itemId
-                     << ". " << menuItem.name
-                     << " - $" << fixed << setprecision(2)
-                     << menuItem.price << "\n";
+                        << ". " << menuItem.name
+                        << " - $" << fixed << setprecision(2)
+                        << menuItem.price << "\n";
             }
         }
 
         cout << "Enter menu item ID: ";
         cin >> menuItemId;
 
-        MenuItem* selectedItem =
-            const_cast<MenuManager&>(menuManager)
-            .getMenuItemById(menuItemId);
+        MenuItem *selectedItem =
+                const_cast<MenuManager &>(menuManager)
+                .getMenuItemById(menuItemId);
 
         if (selectedItem == nullptr || !selectedItem->isAvailable) {
             cout << "That menu item is unavailable or does not exist.\n";
@@ -234,7 +234,7 @@ void OrderManager::viewOrders() const {
         return;
     }
 
-    for (const Order& order : orders) {
+    for (const Order &order: orders) {
         displayOrderDetails(order);
         cout << "------------------------------\n";
     }
@@ -255,7 +255,7 @@ void OrderManager::viewOrdersForTable() const {
         return;
     }
 
-    for (const Order& order : orders) {
+    for (const Order &order: orders) {
         if (order.tableNumber == tableNumber) {
             displayOrderDetails(order);
             cout << "------------------------------\n";
@@ -265,18 +265,18 @@ void OrderManager::viewOrdersForTable() const {
 
     if (!found) {
         cout << "No orders found for table "
-             << tableNumber << ".\n";
+                << tableNumber << ".\n";
     }
 }
 
-void OrderManager::editOrder(const MenuManager& menuManager) {
+void OrderManager::editOrder(const MenuManager &menuManager) {
     int orderId;
 
     cout << "\n========== EDIT ORDER ==========\n";
     cout << "Enter order ID: ";
     cin >> orderId;
 
-    Order* order = findOrderById(orderId);
+    Order *order = findOrderById(orderId);
 
     if (order == nullptr) {
         cout << "Order not found.\n";
@@ -312,9 +312,9 @@ void OrderManager::editOrder(const MenuManager& menuManager) {
             cout << "Enter menu item ID: ";
             cin >> menuItemId;
 
-            MenuItem* selectedItem =
-                const_cast<MenuManager&>(menuManager)
-                .getMenuItemById(menuItemId);
+            MenuItem *selectedItem =
+                    const_cast<MenuManager &>(menuManager)
+                    .getMenuItemById(menuItemId);
 
             if (selectedItem == nullptr || !selectedItem->isAvailable) {
                 cout << "That menu item is unavailable or does not exist.\n";
@@ -350,8 +350,8 @@ void OrderManager::editOrder(const MenuManager& menuManager) {
 
             for (size_t i = 0; i < order->orderItems.size(); i++) {
                 cout << i + 1 << ". "
-                     << order->orderItems[i].itemName
-                     << " x" << order->orderItems[i].quantity << "\n";
+                        << order->orderItems[i].itemName
+                        << " x" << order->orderItems[i].quantity << "\n";
             }
 
             int itemNumber;
@@ -384,7 +384,7 @@ void OrderManager::editOrder(const MenuManager& menuManager) {
 
             for (size_t i = 0; i < order->orderItems.size(); i++) {
                 cout << i + 1 << ". "
-                     << order->orderItems[i].itemName << "\n";
+                        << order->orderItems[i].itemName << "\n";
             }
 
             int itemNumber;
@@ -446,7 +446,7 @@ void OrderManager::updateOrderStatus() {
     cout << "Enter order ID: ";
     cin >> orderId;
 
-    Order* order = findOrderById(orderId);
+    Order *order = findOrderById(orderId);
 
     if (order == nullptr) {
         cout << "Order not found.\n";
@@ -472,7 +472,7 @@ void OrderManager::updateOrderStatus() {
     order->status = numberToStatus(choice);
 
     cout << "Order status updated to "
-         << statusToString(order->status) << ".\n";
+            << statusToString(order->status) << ".\n";
 }
 
 void OrderManager::viewOrdersByStatus(OrderStatus status) const {
@@ -480,7 +480,7 @@ void OrderManager::viewOrdersByStatus(OrderStatus status) const {
 
     cout << "\n========== ORDERS BY STATUS ==========\n";
 
-    for (const Order& order : orders) {
+    for (const Order &order: orders) {
         if (order.status == status) {
             displayOrderDetails(order);
             cout << "------------------------------\n";
@@ -490,7 +490,7 @@ void OrderManager::viewOrdersByStatus(OrderStatus status) const {
 
     if (!found) {
         cout << "No orders found with status "
-             << statusToString(status) << ".\n";
+                << statusToString(status) << ".\n";
     }
 }
 
@@ -503,12 +503,12 @@ void OrderManager::findMostOrderedItem() const {
     vector<string> itemNames;
     vector<int> quantities;
 
-    for (const Order& order : orders) {
+    for (const Order &order: orders) {
         if (order.status == OrderStatus::Cancelled) {
             continue;
         }
 
-        for (const OrderItem& item : order.orderItems) {
+        for (const OrderItem &item: order.orderItems) {
             int index = -1;
 
             for (size_t i = 0; i < itemNames.size(); i++) {
@@ -541,15 +541,15 @@ void OrderManager::findMostOrderedItem() const {
     }
 
     cout << "Most ordered item: "
-         << itemNames[mostOrderedIndex]
-         << " (" << quantities[mostOrderedIndex]
-         << " ordered).\n";
+            << itemNames[mostOrderedIndex]
+            << " (" << quantities[mostOrderedIndex]
+            << " ordered).\n";
 }
 
 double OrderManager::calculateOverallIncome() const {
     double income = 0.0;
 
-    for (const Order& order : orders) {
+    for (const Order &order: orders) {
         if (order.status != OrderStatus::Cancelled) {
             income += calculateOrderTotal(order);
         }
@@ -559,23 +559,23 @@ double OrderManager::calculateOverallIncome() const {
 }
 
 void OrderManager::generateRestaurantReport(
-    const TableManager& tableManager) const {
+    const TableManager &tableManager) const {
     cout << "\n========== RESTAURANT REPORT ==========\n";
     cout << "Total tables: "
-         << tableManager.getTableCount() << "\n";
+            << tableManager.getTableCount() << "\n";
     cout << "Occupied tables: "
-         << tableManager.getOccupiedTableCount() << "\n";
+            << tableManager.getOccupiedTableCount() << "\n";
     cout << "Total orders: "
-         << orders.size() << "\n";
+            << orders.size() << "\n";
     cout << "Overall income: $"
-         << fixed << setprecision(2)
-         << calculateOverallIncome() << "\n";
+            << fixed << setprecision(2)
+            << calculateOverallIncome() << "\n";
 
     findMostOrderedItem();
 }
 
-void OrderManager::loadOrders(const string& ordersFilename,
-                              const string& orderItemsFilename) {
+void OrderManager::loadOrders(const string &ordersFilename,
+                              const string &orderItemsFilename) {
     orders.clear();
 
     ifstream orderFile(ordersFilename);
@@ -670,7 +670,7 @@ void OrderManager::loadOrders(const string& ordersFilename,
             item.unitPrice = stod(priceText);
             item.specialInstructions = instructions;
 
-            for (Order& order : orders) {
+            for (Order &order: orders) {
                 if (order.orderId == stoi(orderIdText)) {
                     order.orderItems.push_back(item);
                     break;
@@ -682,8 +682,8 @@ void OrderManager::loadOrders(const string& ordersFilename,
     }
 }
 
-void OrderManager::saveOrders(const string& ordersFilename,
-                              const string& orderItemsFilename) const {
+void OrderManager::saveOrders(const string &ordersFilename,
+                              const string &orderItemsFilename) const {
     ofstream orderFile(ordersFilename);
 
     if (!orderFile.is_open()) {
@@ -693,12 +693,12 @@ void OrderManager::saveOrders(const string& ordersFilename,
 
     orderFile << "orderId,tableNumber,orderDate,orderTime,status\n";
 
-    for (const Order& order : orders) {
+    for (const Order &order: orders) {
         orderFile << order.orderId << ","
-                  << order.tableNumber << ","
-                  << order.orderDate << ","
-                  << order.orderTime << ","
-                  << statusToString(order.status) << "\n";
+                << order.tableNumber << ","
+                << order.orderDate << ","
+                << order.orderTime << ","
+                << statusToString(order.status) << "\n";
     }
 
     orderFile.close();
@@ -711,16 +711,16 @@ void OrderManager::saveOrders(const string& ordersFilename,
     }
 
     itemFile << "orderId,menuItemId,itemName,quantity,unitPrice,"
-             << "specialInstructions\n";
+            << "specialInstructions\n";
 
-    for (const Order& order : orders) {
-        for (const OrderItem& item : order.orderItems) {
+    for (const Order &order: orders) {
+        for (const OrderItem &item: order.orderItems) {
             itemFile << order.orderId << ","
-                     << item.menuItemId << ","
-                     << item.itemName << ","
-                     << item.quantity << ","
-                     << item.unitPrice << ","
-                     << item.specialInstructions << "\n";
+                    << item.menuItemId << ","
+                    << item.itemName << ","
+                    << item.quantity << ","
+                    << item.unitPrice << ","
+                    << item.specialInstructions << "\n";
         }
     }
 

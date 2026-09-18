@@ -62,7 +62,7 @@ void displayOrderMenu() {
     cout << "Choose an option: ";
 }
 
-void runTableMenu(TableManager& tableManager) {
+void runTableMenu(TableManager &tableManager) {
     int choice;
 
     do {
@@ -106,11 +106,10 @@ void runTableMenu(TableManager& tableManager) {
             default:
                 cout << "Invalid option.\n";
         }
-
     } while (choice != 7);
 }
 
-void runMenuManagementMenu(MenuManager& menuManager) {
+void runMenuManagementMenu(MenuManager &menuManager) {
     int choice;
 
     do {
@@ -144,13 +143,12 @@ void runMenuManagementMenu(MenuManager& menuManager) {
             default:
                 cout << "Invalid option.\n";
         }
-
     } while (choice != 5);
 }
 
-void runOrderManagementMenu(OrderManager& orderManager,
-                            TableManager& tableManager,
-                            const MenuManager& menuManager) {
+void runOrderManagementMenu(OrderManager &orderManager,
+                            TableManager &tableManager,
+                            const MenuManager &menuManager) {
     int choice;
 
     do {
@@ -218,8 +216,8 @@ void runOrderManagementMenu(OrderManager& orderManager,
 
             case 11:
                 cout << "\nOverall income: $"
-                     << orderManager.calculateOverallIncome()
-                     << "\n";
+                        << orderManager.calculateOverallIncome()
+                        << "\n";
                 break;
 
             case 12:
@@ -233,7 +231,6 @@ void runOrderManagementMenu(OrderManager& orderManager,
             default:
                 cout << "Invalid option.\n";
         }
-
     } while (choice != 13);
 }
 
@@ -286,7 +283,6 @@ int main() {
             default:
                 cout << "Invalid option.\n";
         }
-
     } while (choice != 4);
 
     return 0;

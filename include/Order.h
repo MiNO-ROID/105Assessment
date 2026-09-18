@@ -45,38 +45,45 @@ class OrderManager {
 private:
     vector<Order> orders;
 
-    Order* findOrderById(int orderId);
+    Order *findOrderById(int orderId);
 
     string statusToString(OrderStatus status) const;
+
     OrderStatus numberToStatus(int choice) const;
 
-    double calculateOrderTotal(const Order& order) const;
-    void displayOrderDetails(const Order& order) const;
+    double calculateOrderTotal(const Order &order) const;
+
+    void displayOrderDetails(const Order &order) const;
 
 public:
-    void addOrder(TableManager& tableManager,
-                  const MenuManager& menuManager);
+    void addOrder(TableManager &tableManager,
+                  const MenuManager &menuManager);
 
     void viewOrders() const;
+
     void viewOrdersForTable() const;
 
-    void editOrder(const MenuManager& menuManager);
+    void editOrder(const MenuManager &menuManager);
+
     void deleteOrder();
 
     void updateOrderStatus();
+
     void viewOrdersByStatus(OrderStatus status) const;
 
     void findMostOrderedItem() const;
+
     double calculateOverallIncome() const;
+
     void generateRestaurantReport(
-        const TableManager& tableManager
+        const TableManager &tableManager
     ) const;
 
-    void loadOrders(const string& ordersFilename,
-                    const string& orderItemsFilename);
+    void loadOrders(const string &ordersFilename,
+                    const string &orderItemsFilename);
 
-    void saveOrders(const string& ordersFilename,
-                    const string& orderItemsFilename
+    void saveOrders(const string &ordersFilename,
+                    const string &orderItemsFilename
     ) const;
 };
 
