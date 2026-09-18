@@ -728,3 +728,13 @@ void OrderManager::saveOrders(const string &ordersFilename,
 
     cout << "Orders saved successfully.\n";
 }
+
+void OrderManager::displayData() const {
+    viewOrders();
+}
+
+void OrderManager::loadData(const string& filename) {
+}
+
+void OrderManager::saveData(const string& filename) const {
+}

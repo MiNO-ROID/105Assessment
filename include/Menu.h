@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include "manager.h"
 
 using namespace std;
 
@@ -18,11 +19,11 @@ struct MenuItem {
     bool isAvailable;
 };
 
-class MenuManager {
+class MenuManager : public manager {
 private:
     vector<MenuItem> menuItems;
 
-    MenuItem *findMenuItemById(int itemId);
+    MenuItem* findMenuItemById(int itemId);
 
 public:
     void addMenuItem();
@@ -33,13 +34,19 @@ public:
 
     void deleteMenuItem();
 
-    void loadMenu(const string &filename);
+    void loadMenu(const string& filename);
 
-    void saveMenu(const string &filename) const;
+    void saveMenu(const string& filename) const;
+    
+    void displayData() const override;
 
-    MenuItem *getMenuItemById(int itemId);
+    void loadData(const string& filename) override;
 
-    const vector<MenuItem> &getMenuItems() const;
+    void saveData(const string& filename) const override;
+
+    MenuItem* getMenuItemById(int itemId);
+
+    const vector<MenuItem>& getMenuItems() const;
 };
 
 #endif // INC_105ASSESSMENT_MENU_H

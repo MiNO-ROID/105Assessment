@@ -347,3 +347,15 @@ MenuItem *MenuManager::getMenuItemById(int itemId) {
 const vector<MenuItem> &MenuManager::getMenuItems() const {
     return menuItems;
 }
+
+void MenuManager::displayData() const {
+    viewMenuItems();
+}
+
+void MenuManager::loadData(const string& filename) {
+    loadMenu(filename);
+}
+
+void MenuManager::saveData(const string& filename) const {
+    saveMenu(filename);
+}
